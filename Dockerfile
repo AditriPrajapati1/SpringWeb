@@ -5,7 +5,7 @@ WORKDIR /app
 # Install Maven inside the container to build from source
 RUN apt-get update && apt-get install -y maven
 # Copy the entire project directory into the container
-COPY . .
+COPY .. .
 # Build the Spring Boot application, bypassing unit tests for deployment
 RUN mvn clean package -DskipTests
 
