@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery Page</title>
+</head>
+<body>
+<div th:insert="navbar.html"></div>
+<h1>Welcome to the Gallery Page</h1>
+
+<hr>
+<form method="POST" action="galleryPost" enctype="multipart/form-data">
+    <input type="file" name="imgFile">
+    <input type="submit" value="Upload Files">
+</form>
+
+<hr>
+
+<h4>Images from TIDB:</h4>
+<span th:each="image:${session.totalImages}">
+    <img th:src=" 'data:image/jpeg;base64,' + ${image.getImage()}">
+</span>
+</body>
+</html>
