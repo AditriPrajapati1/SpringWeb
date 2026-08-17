@@ -2,26 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gallery Cloudinary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery - Cloudinary</title>
+    <link rel="stylesheet" href="/css/theme.css">
 </head>
 <body>
 <div th:insert="navbar.html"></div>
-<h1>Welcome to the Cloudinary Gallery Page</h1>
 
-<hr>
-<form method="POST" action="gallery2" enctype="multipart/form-data">
-    <input type="file" name="img">
-    <input type="submit" value="Upload Files">
-</form>
+<div class="page">
+    <div class="page-header">
+        <h2>Gallery (Cloudinary)</h2>
+        <p>Images stored via Cloudinary.</p>
+    </div>
 
-<hr>
+    <form method="POST" action="gallery2" enctype="multipart/form-data" class="upload-box">
+        <input type="file" name="img" class="form-control" style="max-width:320px;">
+        <button type="submit" class="btn btn-primary" style="width:auto;">Upload</button>
+    </form>
 
-<h4>Images from Cloudinary:</h4> <br><br>
-
-<span th:each="image:${cloudImages}">
-    <img th:src="${image.getImageUrl()}">
-</span>
-
+    <div class="gallery-grid">
+        <span th:each="image:${cloudImages}">
+            <img th:src="${image.getImageUrl()}">
+        </span>
+    </div>
+</div>
 
 </body>
 </html>

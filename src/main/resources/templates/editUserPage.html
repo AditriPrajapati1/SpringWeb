@@ -2,23 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="/css/theme.css">
 </head>
 
 <body>
 <div th:insert="navbar.html"></div>
-<br>
 
-<h1>Edit the following user:</h1>
+<div class="page">
+    <div class="page-header">
+        <h2>Edit user</h2>
+        <p>Update this user's details.</p>
+    </div>
 
-<hr>
-
-<form method="POST" action="updateUser">
-    Id:<input type="text" th:value="${user.getId()}" name="id" readonly> <br><br>
-    Username: <input type="text" th:value="${user.getUsername()}" name="username"> <br><br>
-    <input type="hidden" th:value="${user.getPassword()}" name="password">
-    <input type="submit" value="Update this User">
-</form>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" action="updateUser">
+                <div class="form-group">
+                    <label class="form-label">ID</label>
+                    <input type="text" class="form-control" th:value="${user.getId()}" name="id" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" th:value="${user.getUsername()}" name="username">
+                </div>
+                <input type="hidden" th:value="${user.getPassword()}" name="password">
+                <button type="submit" class="btn btn-primary" style="width:auto;">Update user</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
