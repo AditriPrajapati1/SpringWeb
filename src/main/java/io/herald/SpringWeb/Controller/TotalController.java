@@ -110,10 +110,13 @@ public class TotalController {
         password = request.getParameter("password");
         String email = request.getParameter("email");
 
+        if (uRepo.findByUsername(username) != null) {
+            m.addAttribute("LoginError", "That username is already taken. Please choose another.");
+            return "signupPage.html";
+        }
         //MD5 Hashing --> DigestUtils -->Crackable
 
-//        String hashPassword = DigestUtils.md5DigestAsHex(password.getBytes());
-
+        // String hashPassword = DigestUtils.md5DigestAsHex(password.getBytes());
         String hashPassword = passwordEncoder.encode(password);
 
         UserTable ut = new UserTable();
@@ -121,8 +124,6 @@ public class TotalController {
         ut.setPassword(hashPassword);
 
         uRepo.save(ut);
-
-        //Mail Sender
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);

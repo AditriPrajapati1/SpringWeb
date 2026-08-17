@@ -1,5 +1,6 @@
 package io.herald.SpringWeb.RController;
 
+import io.herald.SpringWeb.Component.JWUtil;
 import io.herald.SpringWeb.Model.UserTable;
 import io.herald.SpringWeb.Repository.ImageRepository;
 import io.herald.SpringWeb.Repository.UserRepository;
@@ -18,11 +19,31 @@ public class RControllerClass
     private ImageRepository imageRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JWUtil util;
 
     @GetMapping("/hello")
     public String hello()
     {
         return "Hello World";
+    }
+
+    @PostMapping("/loginjwt")
+    public String loginjwt(@RequestParam String username,
+                           @RequestParam String password)
+    {
+        if ("admin".equals(username) && "1234".equals(password)) {
+            return util.generateToken(username);
+        }
+        return "INVALID";
+    }
+
+    @GetMapping("/secureHey")
+    public String secureHey(@RequestHeader("token") String token)
+    {
+        String tok = token.substring(7);
+        String user = util.extractUsername(tok);
+        return "Hey " + user;
     }
 
     @GetMapping("/getAllUsers")
@@ -32,15 +53,14 @@ public class RControllerClass
     }
 
     @PostMapping("/saveUser")
+    //@RequestBody --> JSON ma data aako cha bhane, requestbody lekhna parcha
     public String saveUser(@RequestBody UserTable user)
     {
-        //@RequestBody --> JSON ma data aako cha bhane, requestbody lekhna parcha
-
         userRepository.save(user);
         return "Saved Successfully";
     }
 
-    @GetMapping("/getOne/{id}")  //Path variable
+    @GetMapping("/getOne/{id}")
     public UserTable getOne(@PathVariable int id)
     {
         UserTable u = userRepository.findById(id).get();

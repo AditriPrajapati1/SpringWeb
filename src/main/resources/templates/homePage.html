@@ -2,41 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
+    <link rel="stylesheet" href="/css/theme.css">
 </head>
 <body>
-    <div th:insert = "navbar.html"></div>
-    <h2>Welcome to Home Page</h2>
+<div th:insert="navbar.html"></div>
 
-    <hr>
+<div class="page">
+    <div class="page-header">
+        <h2>Users</h2>
+        <p>Manage all registered users.</p>
+    </div>
 
-    <table class="table">
-        <tr>
-            <td>ID</td>
-            <td>Username</td>
-            <td>Edit Username</td>
-            <td>Delete User</td>
-        </tr>
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
 
-        <tr th:each="user:${totalUsers}">
-            <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getUsername()}"></td>
-            <td>
-                <form method="POST" action="editUser">
-                    <input type="hidden" name="id" th:value="${user.getId()}">
-                    <input type="submit" value="Edit the username">
-                </form>
-            </td>
+            <tr th:each="user:${totalUsers}">
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getUsername()}"></td>
+                <td>
+                    <form method="POST" action="editUser">
+                        <input type="hidden" name="id" th:value="${user.getId()}">
+                        <button type="submit" class="btn btn-outline btn-sm">Edit</button>
+                    </form>
+                </td>
 
-            <td>
-                <form method="post" action="deleteUser">
-                    <input type="hidden" th:value="${user.getId()}" name="id">
-                    <input type="submit" value="Delete this user">
-                </form>
-
-            </td>
-        </tr>
-
-    </table>
+                <td>
+                    <form method="post" action="deleteUser">
+                        <input type="hidden" th:value="${user.getId()}" name="id">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 </body>
 </html>
